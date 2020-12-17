@@ -92,8 +92,19 @@ select ASCII('A')
 from dual;
 
 -- INSTR(s1,s2,m,n) 문자열 검색, s1의 m번째부터 s2 문자열이 나타나는 n번째 위치 반환
--- 이해가 안됨 다시 찾아봐야할 듯
-select instr('HelloWorld', 'World', 1, 1) 
+select instr('HelloWorld', 'World') --World의 시작위치인 6이출력
+from dual;
+
+select instr('HelloWorld', 'World', 2) --2부터 시작되고 World의 위치는 6이므로 6출력 (시작위치로부터의 위치가 반환되는게 아님)
+from dual;
+
+select instr('HelloWorld', 'World', 7) --7부터 시작되므로 World가 없음
+from dual;
+
+select instr('HelloWorld', 'o', 1, 2) --1부터 시작되고 두번째 0를 찾므로 위치는 7
+from dual;
+
+select instr('HelloWorld', 'o', 6, 2) --6부터 시작되고 두번째 0를 찾므로 없음
 from dual;
 
 -- LENGTH(s)문자열 길이 반환
@@ -180,8 +191,8 @@ select last_day(sysdate)
 from dual;
 
 --NEW_TIME(d,z1,z2) z1타임존의 d에서 z2타임존의 날짜 생성 
--- 이해가 안됨 다시 찾아봐야할 듯
-select NEW_TIME(sysdate, 'AST', 'PST')
+-- 표준시의 개념이 있으며, 이를 변환해주는 것임
+select NEW_TIME(to_date('2020-10-01 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), 'AST', 'PST')
 from dual;
 
 --NEXT_DAY(d,day) d날 후의 첫 day요일의 날짜 NEXT_DAY ('01-SEP-95','FRIDAY') '08-SEP-95‘
@@ -224,9 +235,18 @@ from dual;
 
 /* TO_NUMBER(s,fmt)와 TO_DATE(s,fmt)해보기 */
 --TO_NUMBER(s,fmt)
---하는법 찾아보기
+select to_number('1234')
+from dual;
+
+select to_number('12,034', '999,999')
+from dual;
+
 --TO_DATE(s,fmt)해보기
---하는법 찾아보기
+select to_date('2020-10-20 14:00:00', 'yyyy-mm-dd hh24:mi:ss')
+from dual;
+
+select to_char(to_date('2020-10-20 14:00:00', 'yyyy-mm-dd hh24:mi:ss'), 'yyyy-mm-dd hh24:mi:ss')
+from dual;
 
 /**일반함수**/
 -- 직원의 커미션비율과 커미션 없을때 0으로 출력하는 커미션비율을 출력하세요
