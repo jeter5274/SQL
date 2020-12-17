@@ -62,9 +62,9 @@ select  salary,
 from employees;
 
 -- 숫자함수 – TRUNC(숫자, 출력을 원하는 자리수) 
-select  trunc(123.456, 2) as r2,
-        trunc(123.456, 0) as r0,
-        trunc(123.456, -1) as "r-1"
+select  trunc(123.456, 2) as t2,
+        trunc(123.456, 0) as t0,
+        trunc(123.456, -1) as "t-1"
 from dual;
 
 -- 날짜함수 - SYSDATE
