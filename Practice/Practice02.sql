@@ -11,10 +11,12 @@ where manager_id is not null;
 
 /*
 문제2. 
-직원중에 최고임금(salary)과  최저임금을 “최고임금, “최저임금”프로젝션 타이틀로 함께 출력해 보세요. 두 임금의 차이는 얼마인가요?  “최고임금 – 최저임금”이란 타이틀로 함께 출력해 보세요.
+직원중에 최고임금(salary)과  최저임금을 “최고임금, “최저임금”프로젝션 타이틀로 함께 출력해 보세요. 
+두 임금의 차이는 얼마인가요?  “최고임금 – 최저임금”이란 타이틀로 함께 출력해 보세요.
 */
 select  max(salary) 최고임금,
-        min(salary) 최저임금
+        min(salary) 최저임금,
+        max(salary)-min(salary) "최고임금 - 최저임금"
 from employees;
 
 /*
@@ -36,7 +38,7 @@ select  department_id 부서,
         min(salary) 최저임금
 from employees
 group by department_id
-order by department_id;
+order by department_id desc;
 
 /*
 문제5.
@@ -57,7 +59,7 @@ order by min(salary) desc, round(avg(salary), 0) asc;
 가장 오래 근속한 직원의 입사일은 언제인가요? 다음 형식으로 출력해주세요.
 예) 2001-01-13 토요일 
 */
-select to_char(min(hire_date), 'YYYY-MM-DD DAY') "장기근속직원 입사일"
+select to_char(min(hire_date), 'YYYY-MM-DD DAY') "최고참 입사일"
 from employees;
 
 /*
@@ -72,6 +74,7 @@ select  department_id 부서,
         avg(salary)-min(salary) "평균-최저 임금"
 from employees
 group by department_id
+having avg(salary)-min(salary) <= 2000
 order by avg(salary)-min(salary) desc;
 
 /*
@@ -91,7 +94,8 @@ order by max(salary)-min(salary) desc;
 출력은 관리자별로 평균급여가 5000이상 중에 평균급여 최소급여 최대급여를 출력합니다.
 평균급여의 내림차순으로 정렬하고 평균급여는 소수점 첫째짜리에서 반올림 하여 출력합니다.
 */
-select  round(avg(salary),0) 평균급여,
+select  manager_id,
+        round(avg(salary),0) 평균급여,
         min(salary) 최소급여,
         max(salary) 최대급여
 from employees
