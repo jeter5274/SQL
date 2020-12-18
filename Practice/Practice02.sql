@@ -75,7 +75,7 @@ select  department_id 부서,
 from employees
 group by department_id
 having avg(salary)-min(salary) <= 2000
-order by avg(salary)-min(salary) desc;
+order by "평균-최저 임금" desc; --별명으로 정렬해도 됨
 
 /*
 문제8.
