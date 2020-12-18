@@ -59,7 +59,7 @@ order by max_salary desc;
 */
 select  first_name,
         salary,
-        commission_pct
+        nvl(commission_pct, 0)
 from employees
 where salary <= 14000
 and salary >= 10000
@@ -87,8 +87,17 @@ or department_id = 100;
 select  first_name,
         salary
 from employees
+where upper(first_name) like '%S%';
+--대문자로 변환하여 비교 후 출력
+/*
 where instr(first_name, 's') > 0
 or instr(first_name, 'S') > 0;
+-- 소문자 찾고 대문자 찾는것을 각각
+
+where first_name like '%S%'
+or first_name like '%s%';
+--요것도 되네
+*/
 
 /*
 문제8.
@@ -118,4 +127,4 @@ select  first_name,
         replace(phone_number, '.', '-'),
         hire_date
 from employees
-where hire_date < '03/12/31';
+where hire_date <= '03/12/31';
