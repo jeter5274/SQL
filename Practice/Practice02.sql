@@ -114,5 +114,6 @@ select  first_name 이름,
              when hire_date <= '04/12/31' then '04년입사'
              else '상장이후입사'
         end "optData"
-from employees;
+from employees
+order by hire_date asc;
 
