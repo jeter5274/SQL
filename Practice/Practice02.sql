@@ -8,6 +8,10 @@ select count(*) "haveMngCnt"
 from employees
 where manager_id is not null;
 
+-- 요게 더 명확함
+select count(manager_id) "haveMngCnt"
+from employees
+where manager_id is not null;
 
 /*
 문제2. 
@@ -53,6 +57,15 @@ select  job_id 업무,
 from employees
 group by job_id
 order by min(salary) desc, round(avg(salary), 0) asc;
+
+--라운드의 위치가 틀렸음
+select  job_id 업무,
+        round(avg(salary), 0) 평균임금,
+        max(salary) 최고임금,
+        min(salary) 최저임금
+from employees
+group by job_id
+order by min(salary) desc, avg(salary) asc;
 
 /*
 문제6.
@@ -101,8 +114,10 @@ select  manager_id,
 from employees
 where hire_date > '05/12/12'
 group by manager_id
-having avg(salary) > 5000
+having avg(salary) >= 5000   --부등호 수정 > -> >=
 order by avg(salary) desc;
+
+
 
 /*
 문제10
@@ -121,3 +136,15 @@ select  first_name 이름,
 from employees
 order by hire_date asc;
 
+-- 문제수정 : 출력형식은 직원아이디, 급여, optDate, 입사일 이며 정렬은 입사일로 오름차순으로 정렬합니다.
+-- 범위의 명확화
+select  employee_id 직원아이디,
+        salary 급여,
+        case when hire_date <= '02/12/31' then '창립멤버'
+             when hire_date >= '03/01/01' and hire_date <= '03/12/31' then '03년입사'
+             when hire_date >= '04/01/01' and hire_date <= '04/12/31' then '04년입사'
+             else '상장이후입사'
+        end "optData",
+        hire_date 입사일
+from employees
+order by 입사일 asc;
