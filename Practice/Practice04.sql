@@ -178,5 +178,42 @@ and emp.salary > avgs.avgsal;
 문제8.
 직원 입사일이 11번째에서 15번째의 직원의 사번, 이름, 급여, 입사일을 입사일 순서로 출력하세요
 */
+-- 1. 직원의 사번, 이름, 급여, 입사일을 입사일 순서로 출력
+select  employee_id,
+        first_name,
+        salary,
+        hire_date
+from employees
+order by hire_date asc;
 
-
+-- 2. 11~15번째를 구분하기 위한 rownum 생성
+select  rownum,
+        employee_id,
+        first_name,
+        salary,
+        hire_date
+from (select employee_id,
+             first_name,
+             salary,
+             hire_date
+      from employees
+      order by hire_date asc) oem;
+      
+-- 3. rownum을 조건절에 사용하기 위해 재정리 및 11~15번째 직원 출력
+select  roem.employee_id,
+        roem.first_name,
+        roem.salary,
+        roem.hire_date
+from (select rownum rn,
+             employee_id,
+             first_name,
+             salary,
+             hire_date
+       from (select employee_id,
+                    first_name,
+                    salary,
+                    hire_date
+             from employees
+             order by hire_date asc) oem) roem
+where roem.rn >= 11
+and roem.rn <=15;
