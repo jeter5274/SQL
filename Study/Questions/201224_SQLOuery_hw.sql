@@ -1,0 +1,19 @@
+-- 숫자형 크기 5인 book_id 문자형 크기 50인 title, 문자형 크기 10인 author, 날짜형인 pub_date 등 4개 컬럼을 가진 book 테이블 생성
+-- book테이블에 문자형 크기 50인 pubs 칼럼 추가
+-- title 컬럼의 크기를 50 -> 100으로 변경
+-- title 컬럼의 이름을 subject로 변경
+-- author 컬럼을 삭제
+-- book테이블 이름을 article로 변경
+-- article 테이블 삭제
+-- 숫자형 크기 10인 author_id, 문자형 크기 100인 author_name, 문자형 크기 500인 author_desc 등 3개의 컬럼을 가진 author테이블을 만드시오, 이때, author_name은 null값이 들어가수 없게, author_id는 프라이머리키로 만드시오
+-- 숫자형 크기 10인 book_id, 문자형 크기 100인 title, 문자형 크기 100인 pubs, 날짜형인 pubs, 숫자형 크기 10인 author_id 등 5개 컬럼을 가진 book테이블을 만드시오, 이때, title은 null값이 들어가수 없게, book_id는 프라이머리키로, author_id는 외래키로 author테이블의 author_id를 참조하게 만드시오
+-- author테이블에 (1, 박경리, 토지 작가) 데이터를 삽입하세요
+-- author테이블에 (2, 이문열) 데이터를 삽입하세요
+-- author테이블의 author이 1인 데이터의 author_name를 기안84로, author_desc 웹툰 작가로 변경하세요
+-- author테이블의 author이 1인 데이터를 삭제하시오
+-- author테이블의 전체 데이터를 삭제하시오
+-- author테이블에 시퀀스를 활용하여 테이터 박경리, 토지 작가, 20-01-01 / 이문열, 삼국지 작가, 20-01-01를 1번, 2번으로 삽입하시오
+-- 모든 시퀀스 정보를 조회하시오
+-- 현재 시퀀스 번호를 조회하시오
+-- 다음 시퀀스 정보를 조회하시오
+-- 시퀀스를 삭제하시오
