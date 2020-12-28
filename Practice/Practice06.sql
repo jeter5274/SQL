@@ -1,3 +1,8 @@
+--테이블/시퀀스 삭제
+drop table book;
+drop table author;
+drop sequence seq_author;
+drop sequence seq_book;
 
 -- author 테이블 생성
 create table author(
@@ -26,7 +31,7 @@ select *
 from book;
 
 -- book sequence 생성
-create sequence sep_book
+create sequence seq_book
 increment by 1
 start with 1; 
 
@@ -35,7 +40,7 @@ select *
 from user_sequences;
 
 -- author sequence 생성
-create sequence sep_author
+create sequence seq_author
 increment by 1
 start with 1; 
 
@@ -45,22 +50,22 @@ from user_sequences;
 
 -- author테이블 데이터 삽입
 insert into author
-values (sep_author.nextval, '이문열', '경북 양양');
+values (seq_author.nextval, '이문열', '경북 양양');
 
 insert into author
-values (sep_author.nextval, '박경리', '경상남도 통영');
+values (seq_author.nextval, '박경리', '경상남도 통영');
 
 insert into author
-values (sep_author.nextval, '유시민', '17대 국회의원');
+values (seq_author.nextval, '유시민', '17대 국회의원');
 
 insert into author
-values (sep_author.nextval, '기안84', '기안동에서 산 84년생');
+values (seq_author.nextval, '기안84', '기안동에서 산 84년생');
 
 insert into author
-values (sep_author.nextval, '강풀', '알쓸신잡'); --잘 못 입력해서, 추후 수정
+values (seq_author.nextval, '강풀', '알쓸신잡'); --잘 못 입력해서, 추후 수정
 
 insert into author
-values (sep_author.nextval, '김영하', '알쓸신잡');
+values (seq_author.nextval, '김영하', '알쓸신잡');
 
 --확인
 select *
@@ -77,28 +82,28 @@ from author;
 
 --book테이블 데이터 삽입
 insert into book
-values (sep_book.nextval, '우리들의 일그러진 영웅', '다림', '1998-02-22', 1);
+values (seq_book.nextval, '우리들의 일그러진 영웅', '다림', '1998-02-22', 1);
 
 insert into book
-values (sep_book.nextval, '삼국지', '민음사', '2002-03-01', 1);
+values (seq_book.nextval, '삼국지', '민음사', '2002-03-01', 1);
 
 insert into book
-values (sep_book.nextval, '토지', '마로니에북스', '2012-08-15', 2);
+values (seq_book.nextval, '토지', '마로니에북스', '2012-08-15', 2);
 
 insert into book
-values (sep_book.nextval, '유시민의 글쓰기 특강', '생각의길', '2015-04-01', 3);
+values (seq_book.nextval, '유시민의 글쓰기 특강', '생각의길', '2015-04-01', 3);
 
 insert into book
-values (sep_book.nextval, '패션왕', '중앙북스(books)', '2012-02-22', 4);
+values (seq_book.nextval, '패션왕', '중앙북스(books)', '2012-02-22', 4);
 
 insert into book
-values (sep_book.nextval, '순정만화', '재미주의', '2011-08-03', 5);
+values (seq_book.nextval, '순정만화', '재미주의', '2011-08-03', 5);
 
 insert into book
-values (sep_book.nextval, '오직두사람', '문학동네', '2017-05-04', 6);
+values (seq_book.nextval, '오직두사람', '문학동네', '2017-05-04', 6);
 
 insert into book
-values (sep_book.nextval, '26년', '재미주의', '2012-02-04', 5);
+values (seq_book.nextval, '26년', '재미주의', '2012-02-04', 5);
 
 --확인
 select *
@@ -109,7 +114,7 @@ from book;
 select  bo.book_id,
         bo.title,
         bo.pubs,
-        bo.pub_date,
+        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date,
         bo.author_id,
         au.author_name,
         au.author_desc
@@ -120,7 +125,7 @@ where bo.author_id = au.author_id;
 select  bo.book_id,
         bo.title,
         bo.pubs,
-        bo.pub_date,
+        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date,
         bo.author_id,
         au.author_name,
         au.author_desc
@@ -136,11 +141,21 @@ where author_name = '강풀';
 select  bo.book_id,
         bo.title,
         bo.pubs,
-        bo.pub_date,
+        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date,
         bo.author_id,
         au.author_name,
         au.author_desc
 from book bo left outer join author au
+on bo.author_id = au.author_id;
+
+select  bo.book_id,
+        bo.title,
+        bo.pubs,
+        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date,
+        bo.author_id,
+        au.author_name,
+        au.author_desc
+from book bo full outer join author au
 on bo.author_id = au.author_id;
 
 -- author 테이블에서 기안84 데이터를 삭제해 보세요
@@ -189,7 +204,7 @@ values (sep_book.nextval, '패션왕', '중앙북스(books)', '2012-02-22', (sel
 select  bo.book_id,
         bo.title,
         bo.pubs,
-        bo.pub_date,
+        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date,
         bo.author_id,
         au.author_name,
         au.author_desc
